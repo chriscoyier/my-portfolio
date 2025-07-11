@@ -9,19 +9,19 @@ const workEntries = await getCollection('work');
   <h2 class="section-title">Work</h2>
   <div class="work__container bd-grid">
     {workEntries.map(entry => (
-      <a href="#" class="work__img"> {/* Update href later if needed */}
-        <img src={entry.data.image} alt={entry.data.title} />
-      </a>
+      <div class="work__item">
+        <img src={entry.data.image} alt={entry.data.title} class="work__img" />
+        <h3>{entry.data.title}</h3>
+        <p>{entry.data.description}</p>
+      </div>
     ))}
   </div>
 </section>
 
 <style>
-  /* Styles from original index.astro, if any, can be scoped here or kept global */
   .work {
-    padding-top: 2rem; /* Example style, adjust as needed */
+    padding-top: 2rem; 
   }
-
   .section-title {
     position: relative;
     font-size: var(--h2-font-size);
@@ -44,33 +44,31 @@ const workEntries = await getCollection('work');
   }
 
   .work__container {
-    gap: 2rem; /* Or var(--gap, 2rem) if you use CSS variables for gaps */
-    max-width: 1024px; /* Or your preferred max-width */
+    gap: 2rem;  
+    max-width: 1024px; 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  }
+
+  .work__item {
+    overflow: hidden;
+    border-radius: 0.5rem; 
   }
 
   .work__img {
-    overflow: hidden;
-    border-radius: 0.5rem; /* Example style */
-  }
-
-  .work__img img {
     width: 100%;
-    height: auto; /* Maintain aspect ratio */
-    display: block; /* Remove bottom space */
-    transition: transform 0.3s ease; /* For hover effect */
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;  
   }
 
-  .work__img:hover img {
-    transform: scale(1.1); /* Example hover effect */
+  .work__img:hover {
+    transform: scale(1.1); 
   }
-
-  /* From original style.css that might be relevant */
   .bd-grid {
     max-width: 1024px;
     display: grid;
-    grid-template-columns: 100%;
+    grid-template-columns: repeat(3, 1fr);
     grid-column-gap: 2rem;
     width: calc(100% - 2rem);
     margin-left: var(--mb-2);
