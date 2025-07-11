@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+
+// Get all entries from the `work` collection
+const workEntries = await getCollection('work');
+---
+
+<section class="work section" id="work">
+  <h2 class="section-title">Work</h2>
+  <div class="work__container bd-grid">
+    {workEntries.map(entry => (
+      <a href="#" class="work__img"> {/* Update href later if needed */}
+        <img src={entry.data.image} alt={entry.data.title} />
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  /* Styles from original index.astro, if any, can be scoped here or kept global */
+  .work {
+    padding-top: 2rem; /* Example style, adjust as needed */
+  }
+
+  .section-title {
+    position: relative;
+    font-size: var(--h2-font-size);
+    color: var(--first-color);
+    margin-top: var(--mb-2);
+    margin-bottom: var(--mb-4);
+    text-align: center;
+  }
+
+  .section-title::after {
+    position: absolute;
+    content: '';
+    width: 64px;
+    height: 0.18rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 2rem;
+    background-color: var(--first-color);
+  }
+
+  .work__container {
+    gap: 2rem; /* Or var(--gap, 2rem) if you use CSS variables for gaps */
+    max-width: 1024px; /* Or your preferred max-width */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  }
+
+  .work__img {
+    overflow: hidden;
+    border-radius: 0.5rem; /* Example style */
+  }
+
+  .work__img img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Remove bottom space */
+    transition: transform 0.3s ease; /* For hover effect */
+  }
+
+  .work__img:hover img {
+    transform: scale(1.1); /* Example hover effect */
+  }
+
+  /* From original style.css that might be relevant */
+  .bd-grid {
+    max-width: 1024px;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-column-gap: 2rem;
+    width: calc(100% - 2rem);
+    margin-left: var(--mb-2);
+    margin-right: var(--mb-2);
+  }
+</style>
